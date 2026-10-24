@@ -1,38 +1,20 @@
-# BUG-01: Буруу JSON хүсэлтэд HTTP 200 OK буцааж байна
+# BUG-01: Хүснэгтийн «Он» баганад оныг мянгатын таслалтай (1,971) харуулдаг
 
-- **Status:** Confirmed
-- **Test result:** FAIL
-- **Type:** API / Data validation
-- **Severity:** Major
+Орчин:  Уншлагын жагсаалт v2.0, Chromium 153.0.8010.12, Linux x86_64 (Node.js v22.23.4), 2026-10-24
 
-## Environment
-- Application: http://localhost:3000/
-- Endpoint: POST /api/books
-- Content-Type: application/json
+Урьдчилсан нөхцөл: node app.js-ийг шинээр асаасан (анхны 3 ном), браузерт http://localhost:3000 нээсэн
 
-## Preconditions
-Application ажиллаж байгаа бөгөөд API endpoint-д хандах боломжтой.
+## Дахин гаргах алхам
 
-## Steps to Reproduce
-1. Terminal нээнэ.
-2. Дараах хүсэлтийг илгээнэ:
+1. Хуудсыг нээнэ.
+2. Хүснэгтийн «Он» баганыг харна.
 
-   ```bash
-   curl -i -X POST 'http://localhost:3000/api/books' 
-     -H 'Content-Type: application/json' 
-     --data-binary '{"title":'
-   ```
+Хүлээгдэж байсан: Спец: «Он нь 1000-2100 хоорондох бүхэл тоо; хүснэгтэд энгийн тоогоор (жишээ нь 1999) харагдана.»
 
-3. HTTP status болон response body-г шалгана.
+Бодит үр дүн:     Анхны 3 номын он «1,971», «2,008», «1,999» гэж мянгатын таслалтай харагдана. Шинээр нэмсэн ном ч мөн адил (2001 -> «2,001»).
 
-## Expected Result
-Буруу форматтай JSON хүсэлтийг сервер татгалзаж, 4xx төрлийн алдаа буцаана.
+Ноцтой байдал: Minor — өгөгдөл зөв, харагдац буруу; хэрэглэгч ондоо таслалтай тоо хүлээдэггүй, андуурал үүсгэнэ.
 
-## Actual Result
-Хадгалсан гаралтад `HTTP/1.1 200 OK` болон `{"result":"OK"}` гэж харагдсан.
+Хавсралт:      ![BUG-01](../screenshots/bug-01.png)
 
-## Evidence
-[evidence/bug-api-01-curl.txt](../evidence/bug-api-01-curl.txt)
-
-## Test Result
-FAIL — буруу JSON хүсэлт амжилттай боловсруулагдсан мэт хариу авсан.
+Олдсон аялал:  Supermodel
